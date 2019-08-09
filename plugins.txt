@@ -11,3 +11,4 @@ configuration-as-code-support:latest
 job-dsl:latest
 pam-auth:latest
 maven-plugin:latest
+blueocean:latest
