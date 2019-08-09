@@ -1,0 +1,104 @@
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy: "loggedInUsersCanDoAnything"
+  disableRememberMe: false
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  numExecutors: 2
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: false
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "admin"
+        password: ${jenkins_password:-amit}
+tool:
+  dockerTool:
+    installations:
+    - name: "docker"
+      properties:
+      - installSource:
+          installers:
+          - docker:
+              version: "latest"
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  maven:
+    installations:
+    - name: "maven3"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.5.0"
+jobs:
+  - script: >
+      folder('Cool Store') {
+          displayName('Cool Store')
+          description('XebiaLabs DevOps Pack for Jenkins demo')
+      }
+  - script: >
+      multibranchPipelineJob('Cool Store/Address book') {
+        branchSources {
+          git {
+            remote('https://github.com/xebialabs/demo-address-book.git')
+            credentialsId('github-credentials')
+          }
+        }
+      }
+  - script: >
+      multibranchPipelineJob('Cool Store/Shopping cart') {
+        branchSources {
+          git {
+            remote('https://github.com/xebialabs/demo-shopping-cart.git')
+            credentialsId('github-credentials')
+          }
+        }
+      }
+  - script: >
+      multibranchPipelineJob('Cool Store/Wish list') {
+        branchSources {
+          git {
+            remote('https://github.com/xebialabs/demo-wish-list.git')
+            credentialsId('github-credentials')
+          }
+        }
+      }
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+        - usernamePassword:
+            scope:    GLOBAL
+            id:       xld
+            username: admin
+            password: ${xld_password:-admin}
+        - usernamePassword:
+            scope:    GLOBAL
+            id:       xlr
+            username: admin
+            password: ${xlr_password:-admin}
+        - usernamePassword:
+            id: gogs
+            password: xebialabs
+            scope: GLOBAL
+            username: ${gogs_password:-xebialabs}
+        - usernamePassword:
+            id: artifactory
+            password: ${artifactory_password:-admin123}
+            scope: GLOBAL
+            username: admin

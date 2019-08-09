@@ -1,4 +1,13 @@
 ARG jenkins_tag
-FROM jenkins/jenkins:$jenkins_tag
-RUN /usr/local/bin/install-plugins.sh scm-api git-client git gradle deployit-plugin:7.5.0 xlrelease-plugin:7.5.1 workflow-aggregator:2.5 dashboard-view:2.9.11
+ARG jenkins_password
+ARG xld_password
+ARG xlr_password
+ARG gogs_password
+ARG artifactory_password
+FROM jenkinsci/blueocean:${jenkins_tag}
+COPY plugins.txt /usr/share/jenkins/additional-plugins.txt
+COPY ./jenkins.yaml /var/jenkins_home/casc_configs/jenkins.yaml
+ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc_configs/jenkins.yaml
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
+RUN install-plugins.sh < /usr/share/jenkins/additional-plugins.txt
+
