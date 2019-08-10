@@ -12,3 +12,4 @@ job-dsl:latest
 pam-auth:latest
 maven-plugin:latest
 blueocean:latest
+artifactory:latest
