@@ -84,6 +84,11 @@ credentials:
       - credentials:
         - usernamePassword:
             scope:    GLOBAL
+            id:       github-credentials
+            username: ${github-user}
+            password: ${github-token}
+        - usernamePassword:
+            scope:    GLOBAL
             id:       xld
             username: admin
             password: ${xld_password:-admin}
