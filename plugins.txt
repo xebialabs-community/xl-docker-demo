@@ -1,3 +1,7 @@
+
+ivy:latest
+ldap:latest
+external-monitor-job:latest
 scm-api:latest
 git-client:latest
 git:latest
@@ -8,7 +12,7 @@ workflow-aggregator:latest
 dashboard-view:latest
 configuration-as-code:latest
 configuration-as-code-support:latest
-job-dsl:latest
+job-dsl:1.74
 pam-auth:latest
 maven-plugin:latest
 blueocean:latest
